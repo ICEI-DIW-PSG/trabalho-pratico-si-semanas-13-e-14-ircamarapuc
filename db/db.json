@@ -1,18 +1,29 @@
 {
-  "usuarios": [
+  "pontos": [
     {
-      "id": "187cb7e5-e097-4224-8bc7-b610c855e2b1",
-      "login": "admin",
-      "senha": "123",
-      "nome": "Administrador do Sistema",
-      "email": "admin@abc.com"
+      "id": 1,
+      "titulo": "Praça do Papa",
+      "descricao": "Uma vista deslumbrante...",
+      "conteudo": "Localizada no alto do bairro Mangabeiras...",
+      "imagem_principal": "assets/img/papa.jpg",
+      "outros_detalhes": { "Localização": "Bairro Mangabeiras, Belo Horizonte, MG", "Funcionamento": "Aberto 24 horas" },
+      "atracoes": [ { "nome": "Monumento à Fé", "imagem": "assets/img/atracoes/monumento_fe.jpg" } ]
     },
     {
-      "id": "ec37c83d-4b7f-458d-9e10-3fda7d37cd3e",
-      "login": "user",
-      "senha": "123",
-      "nome": "Usuario Comum",
-      "email": "user@abc.com"
+      "id": 2,
+      "titulo": "Mercado Central",
+      "descricao": "Sabores e tradição...",
+      "imagem_principal": "assets/img/mercado.jpg",
+      "outros_detalhes": { "Localização": "Centro, Belo Horizonte, MG", "Funcionamento": "Seg a Sáb: 8h às 18h, Dom: 8h às 13h" },
+      "atracoes": [ { "nome": "Queijos e Doces", "imagem": "assets/img/atracoes/mercado_queijos.jpg" } ]
+    },
+    {
+      "id": 3,
+      "titulo": "Lagoa da Pampulha",
+      "descricao": "Obras de Oscar Niemeyer...",
+      "imagem_principal": "assets/img/Lp.jpg",
+      "outros_detalhes": { "Localização": "Região da Pampulha, Belo Horizonte, MG", "Funcionamento": "Orla aberta 24h" },
+      "atracoes": [ { "nome": "Igreja de São F. de Assis", "imagem": "assets/img/atracoes/igreja_pampulha.jpg" } ]
     }
   ]
 }
