@@ -1,49 +1,92 @@
 {
   "pontos": [
     {
-      "id": 1,
+      "id": "1",
       "titulo": "Praça do Papa",
       "descricao": "Uma vista deslumbrante...",
       "imagem_principal": "assets/img/papa.jpg",
       "conteudo": "Localizada no alto do bairro Mangabeiras...",
-      "coordenadas": [-43.9142, -19.9376],
+      "coordenadas": [
+        -43.9142,
+        -19.9376
+      ],
       "outros_detalhes": {
         "Localização": "Bairro Mangabeiras, Belo Horizonte, MG",
         "Funcionamento": "Aberto 24 horas"
       },
       "atracoes": [
-        { "nome": "Monumento à Fé", "imagem": "assets/img/atracoes/monumento_fe.jpg" },
-        { "nome": "Mirante da Cidade", "imagem": "assets/img/atracoes/mirante_praca.jpg" }
+        {
+          "nome": "Monumento à Fé",
+          "imagem": "assets/img/atracoes/monumento_fe.jpg"
+        },
+        {
+          "nome": "Mirante da Cidade",
+          "imagem": "assets/img/atracoes/mirante_praca.jpg"
+        }
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "titulo": "Mercado Central",
       "descricao": "Sabores e tradição...",
       "imagem_principal": "assets/img/mercado.jpg",
-      "coordenadas": [-43.9397, -19.9213],
+      "coordenadas": [
+        -43.9397,
+        -19.9213
+      ],
       "outros_detalhes": {
         "Localização": "Centro, Belo Horizonte, MG",
         "Funcionamento": "Seg a Sáb: 8h às 18h, Dom: 8h às 13h"
       },
       "atracoes": [
-        { "nome": "Queijos e Doces", "imagem": "assets/img/atracoes/mercado_queijos.jpg" },
-        { "nome": "Artesanato Local", "imagem": "assets/img/atracoes/mercado_artesanato.jpg" }
+        {
+          "nome": "Queijos e Doces",
+          "imagem": "assets/img/atracoes/mercado_queijos.jpg"
+        },
+        {
+          "nome": "Artesanato Local",
+          "imagem": "assets/img/atracoes/mercado_artesanato.jpg"
+        }
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "titulo": "Lagoa da Pampulha",
       "descricao": "Obras de Oscar Niemeyer...",
       "imagem_principal": "assets/img/Lp.jpg",
-      "coordenadas": [-43.9787, -19.8631],
+      "coordenadas": [
+        -43.9787,
+        -19.8631
+      ],
       "outros_detalhes": {
         "Localização": "Região da Pampulha, Belo Horizonte, MG",
         "Funcionamento": "Orla aberta 24h"
       },
       "atracoes": [
-        { "nome": "Igreja de São F. de Assis", "imagem": "assets/img/atracoes/igreja_pampulha.jpg" },
-        { "nome": "Museu de Arte (MAP)", "imagem": "assets/img/atracoes/map_museu.jpg" }
+        {
+          "nome": "Igreja de São F. de Assis",
+          "imagem": "assets/img/atracoes/igreja_pampulha.jpg"
+        },
+        {
+          "nome": "Museu de Arte (MAP)",
+          "imagem": "assets/img/atracoes/map_museu.jpg"
+        }
+      ]
+    },
+    {
+      "id": "61b3",
+      "atracoes": [],
+      "outros_detalhes": {
+        "Localização": "Av. Afonso Pena, 1377 - Centro, Belo Horizonte - MG",
+        "Funcionamento": "Terça a Domingo, das 8h às 17h"
+      },
+      "titulo": "Parque Municipal Américo Renné Giannetti",
+      "descricao": "O oásis verde no coração do centro de BH, ideal para caminhadas e relaxamento.",
+      "imagem_principal": "assets/img/atracoes/parque_municipal.jpg",
+      "conteudo": "O Parque Municipal Américo Renné Giannetti é a área verde mais tradicional de Belo Horizonte, inaugurado junto com a cidade em 1897. Localizado no hipercentro, ele oferece uma pausa da agitação urbana, com lagos, coreto, jardins inspirados no paisagismo francês e o histórico Teatro Francisco Nunes.",
+      "coordenadas": [
+        -43.9333,
+        -19.9239
       ]
     }
   ]
