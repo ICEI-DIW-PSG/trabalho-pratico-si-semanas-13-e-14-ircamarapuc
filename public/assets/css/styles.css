@@ -57,3 +57,22 @@ body {
     height: 400px;
     object-fit: cover;
 }
+
+/* Define a altura do container do mapa */
+#mapa {
+    height: 600px; 
+    width: 100%;
+}
+
+/* Personaliza a caixa de popup do Mapbox */
+.mapboxgl-popup-content {
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 8px;
+}
+.mapboxgl-popup-content h6 {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}

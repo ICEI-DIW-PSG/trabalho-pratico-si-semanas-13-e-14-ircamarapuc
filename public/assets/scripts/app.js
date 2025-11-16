@@ -34,7 +34,7 @@ const getPonto = async (id) => {
 // POST (Create) / PUT (Update): Salva (cria ou atualiza) um ponto
 const salvarPonto = async (ponto) => {
     const method = ponto.id ? 'PUT' : 'POST';
-    const url = ponto.id ? `${API_URL}/${id}` : API_URL;
+    const url = ponto.id ? `${API_URL}/${ponto.id}` : API_URL;
 
     try {
         const response = await fetch(url, {
@@ -59,11 +59,6 @@ const excluirPonto = async (id) => {
     }
 };
 
-/*
-|--------------------------------------------------------------------------
-| FUNÇÕES DE RENDERIZAÇÃO E DOM (O que o usuário vê)
-|--------------------------------------------------------------------------
-*/
 
 // Carrega os cards na página inicial (index.html)
 const carregarCards = async () => {
@@ -138,7 +133,7 @@ const preencherFormulario = async (id) => {
     if (!ponto) return;
 
     document.getElementById('form-title').textContent = `Editar: ${ponto.titulo}`;
-    document.getElementById('ponto-id').value = ponto.id; // <-- AQUI É ONDE O ID É SALVO
+    document.getElementById('ponto-id').value = ponto.id; 
     document.getElementById('titulo').value = ponto.titulo;
     document.getElementById('descricao').value = ponto.descricao;
     document.getElementById('imagem_principal').value = ponto.imagem_principal;
@@ -148,18 +143,30 @@ const preencherFormulario = async (id) => {
         document.getElementById('detalhe-localizacao').value = ponto.outros_detalhes.Localização || '';
         document.getElementById('detalhe-funcionamento').value = ponto.outros_detalhes.Funcionamento || '';
     }
+    
+    if (ponto.coordenadas) {
+        document.getElementById('coordenada-lon').value = ponto.coordenadas[0];
+        document.getElementById('coordenada-lat').value = ponto.coordenadas[1];
+    }
 };
 
 // Lida com o envio do formulário (Criação ou Edição)
 const handleFormSubmit = async (event) => {
     event.preventDefault(); 
-
-    // LÊ O ID DO CAMPO OCULTO
     const id = document.getElementById('ponto-id').value;
 
     let pontoExistente = { atracoes: [], outros_detalhes: {} };
     if (id) {
         pontoExistente = await getPonto(id);
+    }
+
+    // Lê as coordenadas do formulário
+    const longitude = parseFloat(document.getElementById('coordenada-lon').value) || null;
+    const latitude = parseFloat(document.getElementById('coordenada-lat').value) || null;
+    let coordenadas = null;
+
+    if (longitude && latitude) {
+        coordenadas = [longitude, latitude];
     }
 
     const ponto = {
@@ -168,6 +175,7 @@ const handleFormSubmit = async (event) => {
         descricao: document.getElementById('descricao').value,
         imagem_principal: document.getElementById('imagem_principal').value,
         conteudo: document.getElementById('conteudo').value,
+        coordenadas: coordenadas,
         outros_detalhes: {
             ...pontoExistente.outros_detalhes,
             "Localização": document.getElementById('detalhe-localizacao').value,
@@ -175,7 +183,6 @@ const handleFormSubmit = async (event) => {
         }
     };
 
-    // VERIFICA SE O ID EXISTE PARA DECIDIR SE É NOVO OU EDIÇÃO
     if (id) {
         ponto.id = parseInt(id, 10);
     } else {
@@ -188,11 +195,48 @@ const handleFormSubmit = async (event) => {
     window.location.href = 'index.html'; 
 };
 
-/*
-|--------------------------------------------------------------------------
-| ROTEADOR (Onde a mágica começa)
-|--------------------------------------------------------------------------
-*/
+// Carrega o mapa interativo na página mapa.html
+const carregarMapa = async () => {
+    const container = document.getElementById('mapa');
+    if (!container) return; 
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaXJjYW1hcmFwdWMiLCJhIjoiY21pMjBnMWs0MWlqejJrcTI3YWVzZGIwNCJ9.NP8d7u5XCP0YA-tbY3gOvA'; 
+
+    if (mapboxgl.accessToken.includes('COLE_SEU_TOKEN')) {
+        container.innerHTML = `<div class="alert alert-danger m-3">Erro: Token do Mapbox não configurado. Por favor, adicione seu token no arquivo app.js</div>`;
+        return;
+    }
+
+    const pontos = await getPontos(); 
+
+    // 2. Cria o mapa
+    const map = new mapboxgl.Map({
+        container: 'mapa', 
+        style: 'mapbox://styles/mapbox/streets-v12', 
+        center: [-43.9397, -19.9213], // Centro inicial (Mercado Central)
+        zoom: 12 
+    });
+
+    // 3. Adiciona marcadores (pins) para cada ponto
+    pontos.forEach(ponto => {
+        if (!ponto.coordenadas || ponto.coordenadas.length !== 2) return; 
+
+        const popup = new mapboxgl.Popup({ offset: 25 })
+            .setHTML(`
+                <h6>${ponto.titulo}</h6>
+                <p>${ponto.descricao}</p>
+                <a href="detalhe.html?id=${ponto.id}" class="btn btn-sm btn-primary">Ver Detalhes</a>
+            `);
+
+        new mapboxgl.Marker()
+            .setLngLat(ponto.coordenadas) // Posição [longitude, latitude]
+            .setPopup(popup) 
+            .addTo(map); 
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
@@ -209,7 +253,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (bodyId === 'page-cadastro') {
         document.getElementById('ponto-form').addEventListener('submit', handleFormSubmit);
         if (id) {
-            preencherFormulario(id); // Se tem ID, é uma edição e preenche o form
+            preencherFormulario(id); 
         }
+    } else if (bodyId === 'page-mapa') {
+        carregarMapa();                 
     }
 });
